@@ -1,0 +1,22 @@
+/* ------------------------------------------------------------------
+   Design tokens: change a color here and it changes everywhere.
+   These hex values are my rough estimates from the brochure image;
+   we'll replace them with your exact ones later.
+   ------------------------------------------------------------------ */
+:root {
+  --teal-dark: #123c4a;   /* headings, dark panels */
+  --cream:     #f8f4ea;   /* page background */
+  --lime:      #a5c13a;   /* accent rules, number circles */
+}
+
+body {
+  background: var(--cream);
+  color: var(--teal-dark);
+  font-family: Georgia, serif;   /* placeholder until we add brochure fonts */
+  max-width: 42rem;              /* keeps lines a readable length */
+  margin: 2rem auto;
+  padding: 0 1rem;               /* breathing room on small screens */
+}
+
+h1, h2 { text-transform: uppercase; }
+a      { color: var(--teal-dark); }
