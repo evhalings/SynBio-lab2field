@@ -29,7 +29,34 @@ Include social scientists in design. Explicitly consider how your design would c
 - **Cost target** — under $5–10 per use for most cases
 - **Usability design** — non-expert interpretable output
 
-<figure class="diagram"><img src="{{ base_url }}/static/img/diagram-five-factors.svg" alt="Diagram linking a central technology to five deployment readiness factors" loading="lazy"></figure>
+<figure class="hub">
+  <div class="hub-stage" role="img" aria-label="Diagram: a central cell-free biosensing platform with arrows pointing to six applications: water, agriculture, sanitation, diagnostics, mosquitoes, and lab tools.">
+    <!-- Arrows. The viewBox is a 300x300 grid with the center at (150,150).
+         Each line runs outward along one of six directions 60 degrees apart. -->
+    <svg class="hub-arrows" viewBox="0 0 300 300" aria-hidden="true">
+      <defs>
+        <!-- Arrowhead, reusable via marker-end. orient="auto" rotates it to follow the line. -->
+        <marker id="hub-tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto">
+          <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+        </marker>
+      </defs>
+      <line x1="172" y1="112" x2="187" y2="86"  marker-end="url(#hub-tip)"/>
+      <line x1="128" y1="112" x2="113" y2="86"  marker-end="url(#hub-tip)"/>
+      <line x1="106" y1="150" x2="74"  y2="150" marker-end="url(#hub-tip)"/>
+      <line x1="194" y1="150" x2="226" y2="150" marker-end="url(#hub-tip)"/>
+      <line x1="128" y1="188" x2="113" y2="214" marker-end="url(#hub-tip)"/>
+      <line x1="172" y1="188" x2="187" y2="214" marker-end="url(#hub-tip)"/>
+    </svg>
+    <!-- Icons: left/top are percentages of the stage, so they scale with it. -->
+    <img class="hub-icon" style="left:30.8%;top:16.8%" src="{{ base_url }}/static/img/hub-droplet.svg" alt="">
+    <img class="hub-icon" style="left:69.2%;top:16.8%" src="{{ base_url }}/static/img/hub-seedling.svg" alt="">
+    <img class="hub-icon" style="left:11.7%;top:50%"   src="{{ base_url }}/static/img/hub-soap.svg" alt="">
+    <img class="hub-icon" style="left:88.3%;top:50%"   src="{{ base_url }}/static/img/hub-readout.svg" alt="">
+    <img class="hub-icon" style="left:30.8%;top:83.2%" src="{{ base_url }}/static/img/hub-mosquito.svg" alt="">
+    <img class="hub-icon" style="left:69.2%;top:83.2%" src="{{ base_url }}/static/img/hub-pipette.svg" alt="">
+    <img class="hub-icon hub-icon--center" style="left:50%;top:50%" src="{{ base_url }}/static/img/hub-pathogen.svg" alt="">
+  </div>
+</figure>
 
 ## Where the connections aren't built yet
 

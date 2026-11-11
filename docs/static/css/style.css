@@ -568,3 +568,40 @@ h3 { font-size: 1.3rem; }
 .case-card--care h2 a { color: var(--paper); }
 .case-card--care h2 a:hover { color: var(--lime); }
 .case-card--care .stat .number { color: var(--lime); }
+
+/* =====================================================================
+   8. HUB DIAGRAM (Researchers page): platform at center, six applications
+   ===================================================================== */
+
+/* Card: pale-blue "mist" background (matches LIGHT in recolor_icons.py), leaf corners */
+.hub {
+  max-width: 30rem;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: var(--mist);
+  border-radius: 3rem 0.6rem 3rem 0.6rem;
+}
+
+/* Square stage: aspect-ratio keeps width = height at any screen size, so
+   percentage positions and the 300x300 arrow grid always line up. */
+.hub-stage { position: relative; aspect-ratio: 1; }
+
+/* Arrow layer fills the stage. `color` is what the arrowheads' currentColor
+   and the lines' stroke pick up. */
+.hub-arrows {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  color: var(--teal);
+}
+.hub-arrows line { stroke: currentColor; stroke-width: 3; stroke-linecap: round; }
+
+/* Each icon is absolutely positioned by its CENTER: left/top (inline style)
+   name the center point, translate(-50%,-50%) pulls it back by half its size. */
+.hub-icon {
+  position: absolute;
+  width: 18%;
+  aspect-ratio: 1;
+  object-fit: contain;        /* never stretch an icon */
+  transform: translate(-50%, -50%);
+}
+.hub-icon--center { width: 26%; }
