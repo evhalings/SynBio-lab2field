@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% block title %}{{ study.title }}{% endblock %}
 {% block content %}
-<a href="{{ base_url }}/index.html">&larr; All case studies</a>
+<p class="kicker"><a href="{{ base_url }}/index.html">&larr; All case studies</a></p>
 <h1>{{ study.title }}</h1>
-{{ study.html | safe }}  <!-- safe: this HTML came from our own Markdown -->
+<div class="rule"></div>
+{{ study.html | safe }}
 {% endblock %}

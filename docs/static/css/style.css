@@ -1,22 +1,205 @@
-/* ------------------------------------------------------------------
-   Design tokens: change a color here and it changes everywhere.
-   These hex values are my rough estimates from the brochure image;
-   we'll replace them with your exact ones later.
-   ------------------------------------------------------------------ */
+/* =====================================================================
+   1. DESIGN TOKENS: values from the brochure, defined once.
+   Anywhere below we write var(--name) instead of repeating a hex code.
+   ===================================================================== */
 :root {
-  --teal-dark: #123c4a;   /* headings, dark panels */
-  --cream:     #f8f4ea;   /* page background */
-  --lime:      #a5c13a;   /* accent rules, number circles */
+  /* brand */
+  --deep-teal: #0E3B45;
+  --teal:      #1C5D63;
+  --water:     #3E93A0;
+  --moss:      #8AA63C;
+  --lime:      #C6DE6B;
+  /* neutrals */
+  --paper: #F7F4EC;   /* page background */
+  --sand:  #EDE7D4;   /* callout backgrounds */
+  --mist:  #DCEBEE;   /* pale blue wells */
+  --ink:   #14313A;   /* body text: near-black teal, never pure black */
+  /* type */
+  --display: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+  --body:    'Karla', system-ui, sans-serif;
+  --script:  'Yellowtail', cursive;
 }
+
+/* =====================================================================
+   2. BASE: page background, body text, container width
+   ===================================================================== */
+* { box-sizing: border-box; }   /* padding counts inside an element's width */
 
 body {
-  background: var(--cream);
-  color: var(--teal-dark);
-  font-family: Georgia, serif;   /* placeholder until we add brochure fonts */
-  max-width: 42rem;              /* keeps lines a readable length */
-  margin: 2rem auto;
-  padding: 0 1rem;               /* breathing room on small screens */
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 1.0625rem;         /* ~17px: comfortable on screens */
+  line-height: 1.55;
 }
 
-h1, h2 { text-transform: uppercase; }
-a      { color: var(--teal-dark); }
+.container {
+  max-width: 60rem;             /* readable on wide monitors */
+  margin: 0 auto;
+  padding: 0 1.25rem;           /* side breathing room on phones */
+}
+
+a { color: var(--teal); }
+a:hover { color: var(--moss); }
+
+/* =====================================================================
+   3. TYPOGRAPHY: display type is always uppercase, tight, condensed
+   ===================================================================== */
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  color: var(--deep-teal);
+  margin: 0 0 0.6rem;
+}
+h1 { font-size: clamp(2.4rem, 6vw, 4rem); }
+h2 { font-size: clamp(1.6rem, 3.5vw, 2.2rem); margin-top: 2.5rem; }
+h3 { font-size: 1.3rem; }
+
+/* Kicker: small, wide-tracked label above a headline */
+.kicker {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.17em;
+  color: var(--teal);
+  margin: 0 0 0.5rem;
+}
+
+/* Accent rule: short moss bar that sits under headlines */
+.rule {
+  width: 3.5rem;
+  height: 3px;
+  background: var(--moss);
+  margin: 0.8rem 0 1.4rem;
+}
+
+/* Script flourish: ONE accent word at a time, never a full headline */
+.script {
+  font-family: var(--script);
+  font-weight: 400;
+  text-transform: none;
+  color: var(--moss);
+}
+
+/* =====================================================================
+   4. HEADER AND FOOTER
+   ===================================================================== */
+.site-header { padding: 1.25rem 0; }
+.site-title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--deep-teal);
+  text-decoration: none;
+}
+
+.site-footer {
+  margin-top: 4rem;
+  padding: 2rem 0;
+  background: var(--deep-teal);
+  color: var(--paper);
+  font-size: 0.85rem;
+  opacity: 0.95;
+}
+
+/* =====================================================================
+   5. COMPONENTS (each one maps to a brochure element)
+   ===================================================================== */
+
+/* Callout card: the "leaf" shape. Border-radius order is
+   top-left, top-right, bottom-right, bottom-left, so alternating
+   big and small radii gives two round corners and two nearly square. */
+.callout {
+  background: var(--sand);
+  color: var(--teal);
+  font-style: italic;
+  padding: 1.5rem 1.75rem;
+  border-radius: 3rem 0.6rem 3rem 0.6rem;
+  margin: 1.75rem 0;
+}
+
+/* Stat pair: big number + small caption */
+.stats { display: flex; flex-wrap: wrap; gap: 2rem; margin: 1.75rem 0; }
+.stat .number {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 3rem;
+  line-height: 1;
+  color: var(--moss);
+}
+.stat .caption { font-size: 0.9rem; max-width: 12rem; }
+
+/* Factor list: moss dash marker instead of a bullet */
+.factors { list-style: none; padding: 0; }
+.factors li { padding-left: 1.5rem; position: relative; margin-bottom: 0.5rem; }
+.factors li::before {            /* ::before draws the marker with no extra HTML */
+  content: "";
+  position: absolute;
+  left: 0; top: 0.75em;
+  width: 0.9rem; height: 3px;
+  background: var(--moss);
+}
+
+/* Numbered badge: lime circle with a numeral */
+.badge {
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  width: 2.2rem; height: 2.2rem;
+  border-radius: 50%;
+  background: var(--lime);
+  color: var(--deep-teal);
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+/* Dark panel: reversed colors for emphasis (e.g. "Case 3, read with care") */
+.panel-dark {
+  background: var(--deep-teal);
+  color: var(--paper);
+  padding: 2rem;
+  border-radius: 0.6rem 3rem 0.6rem 3rem;
+  margin: 2rem 0;
+}
+.panel-dark h2, .panel-dark h3 { color: var(--paper); margin-top: 0; }
+.panel-dark .kicker { color: var(--lime); }
+.panel-dark .rule  { background: var(--lime); }
+
+/* Pull quote: italic body text with an uppercase attribution */
+.pull-quote { font-style: italic; margin: 1.75rem 0; }
+.pull-quote cite {
+  display: block;
+  margin-top: 0.4rem;
+  font-family: var(--display);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--teal);
+}
+
+/* Round photo: square box + 50% radius = circle; object-fit crops, not squishes */
+.round-photo {
+  width: 14rem; height: 14rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Index page case-study cards */
+.card {
+  background: var(--sand);
+  padding: 1.5rem 1.75rem;
+  border-radius: 3rem 0.6rem 3rem 0.6rem;
+  margin-bottom: 1.25rem;
+}
+.card h2 { margin-top: 0; }
+.card h2 a { color: var(--deep-teal); text-decoration: none; }
+.card h2 a:hover { color: var(--teal); }

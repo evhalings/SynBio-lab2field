@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>From Lab to Field</h1>
+<p class="kicker">A field guide for two perspectives</p>
+<h1><span class="script">From lab</span><br>to field</h1>
+<div class="rule"></div>
+<p>How synthetic biology can serve global development.</p>
+
+<h2>Case studies</h2>
 {% for s in studies %}
-  <article>
+  <article class="card">
     <h2><a href="{{ base_url }}/case-studies/{{ s.slug }}.html">{{ s.title }}</a></h2>
     <p>{{ s.summary }}</p>
   </article>
