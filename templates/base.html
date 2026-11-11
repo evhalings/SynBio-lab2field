@@ -15,20 +15,44 @@
   <link rel="stylesheet" href="{{ base_url }}/static/css/style.css">
 </head>
 <body>
+  <!-- Skip link: invisible until a keyboard user tabs to it, then lets them
+       jump past the nav straight to the content. -->
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <header class="site-header">
     <div class="container">
       <a class="site-title" href="{{ base_url }}/index.html">From Lab to Field</a>
+      <nav aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="{{ base_url }}/researchers.html">For researchers</a></li>
+          <li><a href="{{ base_url }}/practitioners.html">For practitioners</a></li>
+          <!-- CHANGED: now the real case-study index page -->
+          <li><a href="{{ base_url }}/case-studies/index.html">Case studies</a></li>
+          <li><a href="{{ base_url }}/about.html">About</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
-  <main class="container">
+  <!-- The hero block is OUTSIDE <main class="container"> so it can span the
+       full browser width. Pages that don't define a hero leave it empty. -->
+  {% block hero %}{% endblock %}
+
+  <main id="main" class="container">
     {% block content %}{% endblock %}
   </main>
 
   <footer class="site-footer">
-    <div class="container">
+    <div class="container footer-inner">
       <p>Supported by NSF SynBAS NRT Training Grant No. 2021900.
          Northwestern Center for Synthetic Biology · Engineers Without Borders Chicagoland Professional Chapter</p>
+      <!-- Logos are black SVGs; CSS inverts them to white on the deep-teal footer.
+           Alt text is the organization name, per image-inventory.md. -->
+      <div class="footer-logos">
+        <img src="{{ base_url }}/static/img/ewb-globe.svg" alt="Engineers Without Borders">
+        <img src="{{ base_url }}/static/img/csb-logo.svg" alt="Center for Synthetic Biology">
+        <img src="{{ base_url }}/static/img/nu-n.svg" alt="Northwestern University">
+      </div>
     </div>
   </footer>
 </body>

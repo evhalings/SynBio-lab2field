@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About the project · From Lab to Field</title>
+
+  <!-- Fonts: Big Shoulders Display (headings), Karla (body), Yellowtail (script).
+       preconnect warms up the connection to Google before the CSS asks for fonts.
+       display=swap shows fallback text immediately instead of blank text. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;700;800&family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Yellowtail&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <!-- Skip link: invisible until a keyboard user tabs to it, then lets them
+       jump past the nav straight to the content. -->
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="site-title" href="/index.html">From Lab to Field</a>
+      <nav aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="/researchers.html">For researchers</a></li>
+          <li><a href="/practitioners.html">For practitioners</a></li>
+          <!-- CHANGED: now the real case-study index page -->
+          <li><a href="/case-studies/index.html">Case studies</a></li>
+          <li><a href="/about.html">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- The hero block is OUTSIDE <main class="container"> so it can span the
+       full browser width. Pages that don't define a hero leave it empty. -->
+  
+
+  <main id="main" class="container">
+    
+
+<header class="page-head">
+  <p class="kicker">The project</p>
+  <h1>About the project</h1>
+  <div class="rule"></div>
+  
+  <p class="lede">This guide was produced as part of an NSF-funded research traineeship project exploring the intersection of synthetic biology and global development practice.</p>
+</header>
+
+
+
+
+
+<div class="prose">
+  <h2>Motivation</h2>
+<p>Working on water infrastructure projects in Central America with Engineers Without Borders, the most important lesson wasn't technical: sustainable development requires community independence. Good solutions are ones communities can operate, maintain, and adapt themselves. A solution that requires outside experts to return is not a sustainable solution.</p>
+<h3>The gap</h3>
+<p>Synthetic biology is producing tools directly relevant to the problems many communities face — water quality, food safety, disease. But the lab-to-field pathway is often realized through opportunistic partnerships, and most scientific research is done within an academic bubble without local context.</p>
+<h2>Research questions</h2>
+<ol>
+<li>What makes a synthetic biology technology field-deployable vs. lab-only?</li>
+<li>What are the barriers to translating promising synbio research into real-world global development applications?</li>
+<li>Where are the missing connections for technologies to reach communities that would benefit?</li>
+</ol>
+<h2>Methods: multi-source research synthesis</h2>
+<ul>
+<li>Case study analysis: three deployed or in-development synbio projects in global development contexts, analyzed using a consistent five-factor <a href="/researchers.html">deployment readiness framework</a></li>
+<li>Literature synthesis across synthetic biology, global health, humanitarian engineering, and development practice</li>
+<li>Stakeholder interviews across three groups (below)</li>
+</ul>
+<h3>Stakeholder interviews</h3>
+<ul>
+<li><strong>Synthetic biology researchers:</strong> Julius Lucks (Northwestern), Keith Pardee (University of Toronto), and a researcher at Imperial College London</li>
+<li><strong>Global development practitioners:</strong> practitioners at the Ifakara Health Institute (Tanzania) and Northwestern</li>
+<li><strong>Humanitarian engineering:</strong> EWB Chicagoland chapter leadership and EWB-USA leadership</li>
+</ul>
+<p>Interview themes: partnership structure, translation barriers, community ownership, and design for independence.</p>
+<h2>Funding and affiliations</h2>
+<ul>
+<li>This project was enabled by support from the NSF SynBAS NRT training grant no. 2021900.</li>
+<li>SynBAS NRT · Northwestern Center for Synthetic Biology</li>
+<li>Engineers Without Borders Chicagoland Professional Chapter</li>
+</ul>
+<h2>References</h2>
+<ul>
+<li>Thavarajah et al., npj Clean Water (2023)</li>
+<li>Pardee et al., Cell (2016)</li>
+<li>Ribeiro et al., medRxiv (2025)</li>
+<li>Karlikow et al., Nature Biomedical Engineering (2022)</li>
+<li>Habtewold et al., Nature (2025)</li>
+</ul>
+</div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>Supported by NSF SynBAS NRT Training Grant No. 2021900.
+         Northwestern Center for Synthetic Biology · Engineers Without Borders Chicagoland Professional Chapter</p>
+      <!-- Logos are black SVGs; CSS inverts them to white on the deep-teal footer.
+           Alt text is the organization name, per image-inventory.md. -->
+      <div class="footer-logos">
+        <img src="/static/img/ewb-globe.svg" alt="Engineers Without Borders">
+        <img src="/static/img/csb-logo.svg" alt="Center for Synthetic Biology">
+        <img src="/static/img/nu-n.svg" alt="Northwestern University">
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

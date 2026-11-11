@@ -12,36 +12,158 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;700;800&family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Yellowtail&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="/SynBio-lab2field/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
+  <!-- Skip link: invisible until a keyboard user tabs to it, then lets them
+       jump past the nav straight to the content. -->
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <header class="site-header">
     <div class="container">
-      <a class="site-title" href="/SynBio-lab2field/index.html">From Lab to Field</a>
+      <a class="site-title" href="/index.html">From Lab to Field</a>
+      <nav aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="/researchers.html">For researchers</a></li>
+          <li><a href="/practitioners.html">For practitioners</a></li>
+          <!-- CHANGED: now the real case-study index page -->
+          <li><a href="/case-studies/index.html">Case studies</a></li>
+          <li><a href="/about.html">About</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
-  <main class="container">
+  <!-- The hero block is OUTSIDE <main class="container"> so it can span the
+       full browser width. Pages that don't define a hero leave it empty. -->
+  
+   
+
+
+<section class="hero hero--circle"
+         style="--hero-img: url('/static/img/photo-field-julius.webp'); --hero-focus: 50% 50%;">
+  <div class="container hero-inner">
+
+    <div class="hero-text">
+      <p class="kicker">A field guide for two perspectives</p>
+      <h1>
+        <span class="script">From lab</span>
+        <span class="hero-title-main">to field</span>
+      </h1>
+      <div class="rule"></div>
+      <p class="hero-subtitle">How synthetic biology can serve global development.</p>
+    </div>
+
     
-<p class="kicker">A field guide for two perspectives</p>
-<h1><span class="script">From lab</span><br>to field</h1>
-<div class="rule"></div>
-<p>How synthetic biology can serve global development.</p>
+    
+    <div class="hero-photo">
+      <img src="/static/img/photo-field-julius.webp"
+           alt="Researchers testing water samples in a Kenyan maize field"
+           style="object-position: 50% 50%;">
+    </div>
+    
 
-<h2>Case studies</h2>
+  </div>
+</section>
 
+
+  <main id="main" class="container">
+    
+
+<!-- Statement of purpose -->
+<section class="statement">
+  <p><strong>Two communities, one goal:</strong> technology that actually reaches the people who need it.</p>
+</section>
+
+<!-- Two-way split: one card per audience, from the audiences list in home.yml -->
+<section class="audience-grid" aria-label="Choose your path">
+  
+  <a class="audience-card audience-card--light" href="/researchers.html">
+    <span class="kicker">I'm a researcher</span>
+    <h2>Why lab success doesn't guarantee field success</h2>
+    <span class="audience-cta">Read the researcher side &rarr;</span>
+  </a>
+  
+  <a class="audience-card audience-card--dark" href="/practitioners.html">
+    <span class="kicker">I work in global development</span>
+    <h2>What can synthetic biology actually do for you?</h2>
+    <span class="audience-cta">Read the practitioner side &rarr;</span>
+  </a>
+  
+</section>
+
+<!-- Teaser: the three questions. <ol> because the order is meaningful. -->
+<section>
+  <h2>Three questions to ask throughout the process</h2>
+  <div class="rule"></div>
+  <ol class="questions">
+    
+    <li>
+      
+      <span class="badge" aria-hidden="true">1</span>
+      <div>
+        <h3>Who is defining the problem?</h3>
+        <p>You cannot tell a community what their problem is. The most successful tools here share one trait: the in-country partnership was built alongside the tool.</p>
+      </div>
+    </li>
+    
+    <li>
+      
+      <span class="badge" aria-hidden="true">2</span>
+      <div>
+        <h3>Independence or dependency?</h3>
+        <p>Transferring tools from academic labs is faster. Building local capacity produces communities that can own the science.</p>
+      </div>
+    </li>
+    
+    <li>
+      
+      <span class="badge" aria-hidden="true">3</span>
+      <div>
+        <h3>How does local context change my design constraints?</h3>
+        <p>Include social scientists in design. Explicitly consider how your design would change outside a well-equipped lab.</p>
+      </div>
+    </li>
+    
+  </ol>
+</section>
+
+<!-- Case study cards. id="case-studies" is the target of the nav link. -->
+<section id="case-studies">
+  <h2>Case studies</h2>
+  <div class="rule"></div>
+  
   <article class="card">
-    <h2><a href="/SynBio-lab2field/case-studies/rosalind.html">ROSALIND, Cell-Free Water Biosensing</a></h2>
+    <h3><a href="/case-studies/rosalind.html">ROSALIND, Cell-Free Water Biosensing</a></h3>
     <p>A freeze-dried water test field-studied in Kenya.</p>
   </article>
+  
+  <article class="card">
+    <h3><a href="/case-studies/paper-diagnostics.html">Paper Diagnostics for Viral Disease</a></h3>
+    <p>A portable viral test used live during the 2015–16 outbreak in Recife, Brazil.</p>
+  </article>
+  
+  <article class="card">
+    <h3><a href="/case-studies/gene-drive.html">Gene Drive Mosquitoes</a></h3>
+    <p>Mosquitoes engineered to resist malaria parasites, built with Tanzanian partners. The highest-stakes technology in this guide.</p>
+  </article>
+  
+</section>
 
 
   </main>
 
   <footer class="site-footer">
-    <div class="container">
+    <div class="container footer-inner">
       <p>Supported by NSF SynBAS NRT Training Grant No. 2021900.
          Northwestern Center for Synthetic Biology · Engineers Without Borders Chicagoland Professional Chapter</p>
+      <!-- Logos are black SVGs; CSS inverts them to white on the deep-teal footer.
+           Alt text is the organization name, per image-inventory.md. -->
+      <div class="footer-logos">
+        <img src="/static/img/ewb-globe.svg" alt="Engineers Without Borders">
+        <img src="/static/img/csb-logo.svg" alt="Center for Synthetic Biology">
+        <img src="/static/img/nu-n.svg" alt="Northwestern University">
+      </div>
     </div>
   </footer>
 </body>

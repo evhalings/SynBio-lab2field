@@ -1,15 +1,89 @@
 {% extends "base.html" %}
-{% block content %}
-<p class="kicker">A field guide for two perspectives</p>
-<h1><span class="script">From lab</span><br>to field</h1>
-<div class="rule"></div>
-<p>How synthetic biology can serve global development.</p>
 
-<h2>Case studies</h2>
-{% for s in studies %}
+{# ---------- HERO ----------
+   Jinja comments like this one never reach the browser.
+   `home` is the dict build.py loaded from content/home.yml. #}
+{% block hero %}
+{% set hero = home.hero %}   {# shorthand so we type hero.title, not home.hero.title #}
+
+{# The modifier class (hero--circle or hero--wide) picks the layout.
+   The inline style hands the image and crop point to the CSS as custom
+   properties; the wide layout uses them, the circle layout ignores them. #}
+<section class="hero hero--{{ hero.layout }}"
+         style="--hero-img: url('{{ base_url }}/static/img/{{ hero.image }}'); --hero-focus: {{ hero.focus }};">
+  <div class="container hero-inner">
+
+    <div class="hero-text">
+      <p class="kicker">{{ hero.kicker }}</p>
+      <h1>
+        <span class="script">{{ hero.script }}</span>
+        <span class="hero-title-main">{{ hero.title }}</span>
+      </h1>
+      <div class="rule"></div>
+      <p class="hero-subtitle">{{ hero.subtitle }}</p>
+    </div>
+
+    {# Only the circle layout renders an <img>. In the wide layout the photo is
+       a CSS background, which is decorative, so it needs no alt text. #}
+    {% if hero.layout == "circle" %}
+    <div class="hero-photo">
+      <img src="{{ base_url }}/static/img/{{ hero.image }}"
+           alt="{{ hero.alt }}"
+           style="object-position: {{ hero.focus }};">
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+{% endblock %}
+
+{# ---------- PAGE BODY ---------- #}
+{% block content %}
+
+<!-- Statement of purpose -->
+<section class="statement">
+  <p><strong>{{ home.statement_lead }}</strong> {{ home.statement }}</p>
+</section>
+
+<!-- Two-way split: one card per audience, from the audiences list in home.yml -->
+<section class="audience-grid" aria-label="Choose your path">
+  {% for a in home.audiences %}
+  <a class="audience-card audience-card--{{ a.style }}" href="{{ base_url }}{{ a.href }}">
+    <span class="kicker">{{ a.kicker }}</span>
+    <h2>{{ a.title }}</h2>
+    <span class="audience-cta">{{ a.cta }} &rarr;</span>
+  </a>
+  {% endfor %}
+</section>
+
+<!-- Teaser: the three questions. <ol> because the order is meaningful. -->
+<section>
+  <h2>{{ home.questions_title }}</h2>
+  <div class="rule"></div>
+  <ol class="questions">
+    {% for q in home.questions %}
+    <li>
+      {# loop.index is Jinja's 1-based counter: 1, 2, 3 #}
+      <span class="badge" aria-hidden="true">{{ loop.index }}</span>
+      <div>
+        <h3>{{ q.heading }}</h3>
+        <p>{{ q.text }}</p>
+      </div>
+    </li>
+    {% endfor %}
+  </ol>
+</section>
+
+<!-- Case study cards. id="case-studies" is the target of the nav link. -->
+<section id="case-studies">
+  <h2>Case studies</h2>
+  <div class="rule"></div>
+  {% for s in studies %}
   <article class="card">
-    <h2><a href="{{ base_url }}/case-studies/{{ s.slug }}.html">{{ s.title }}</a></h2>
+    <h3><a href="{{ base_url }}/case-studies/{{ s.slug }}.html">{{ s.title }}</a></h3>
     <p>{{ s.summary }}</p>
   </article>
-{% endfor %}
+  {% endfor %}
+</section>
+
 {% endblock %}

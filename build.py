@@ -1,15 +1,17 @@
-"""Build a static site from Markdown case studies into docs/."""
+"""Build a static site from Markdown content into docs/."""
 import argparse
 import shutil
 from pathlib import Path
 
 import markdown                      # converts Markdown text -> HTML
-import yaml                          # parses the front matter block
+import yaml                          # parses front matter and home.yml
 from jinja2 import Environment, FileSystemLoader  # fills HTML templates with data
 
 ROOT = Path(__file__).parent
-CONTENT = ROOT / "content" / "case-studies"
-OUT = ROOT / "docs"                  # GitHub Pages will serve this folder
+CASES = ROOT / "content" / "case-studies"   # one .md per case study
+PAGES = ROOT / "content" / "pages"          # NEW: researchers, practitioners, about
+HOME = ROOT / "content" / "home.yml"        # landing-page wording
+OUT = ROOT / "docs"                         # GitHub Pages will serve this folder
 
 # --- Command-line option -----------------------------------------------
 # Local preview:  python build.py                              (base = "")
@@ -19,23 +21,62 @@ parser.add_argument("--base-url", default="")
 args = parser.parse_args()
 
 
-def load_case_study(path: Path) -> dict:
-    """Read one .md file and return its metadata plus rendered HTML body."""
+def load_markdown(path: Path, env: Environment, base_url: str) -> dict:
+    """Read one .md file; return its front matter plus the rendered HTML body.
+
+    Used for BOTH case studies and ordinary pages, since both files have the
+    same shape: a YAML block between '---' lines, then Markdown.
+    """
     text = path.read_text(encoding="utf-8")
     # The file starts with '---', so splitting at most twice gives:
     # ['', front_matter, body]
     _, front, body = text.split("---", 2)
-    study = yaml.safe_load(front)                # dict: title, summary, tags
-    study["html"] = markdown.markdown(body)      # prose -> HTML
-    study["slug"] = path.stem                    # filename becomes the URL
-    return study
+    item = yaml.safe_load(front)                 # dict: title, summary, ...
+
+    # NEW: treat the body as a tiny Jinja template FIRST, so that
+    # {{ base_url }} inside the .md file (image paths, links) gets filled in.
+    # Because of this, never write a literal "{{" or "{%" in content files.
+    body = env.from_string(body).render(base_url=base_url)
+
+    item["html"] = markdown.markdown(body)       # Markdown -> HTML
+    item["slug"] = path.stem                     # filename becomes the URL
+    return item
+
+
+def load_home() -> dict:
+    """Read content/home.yml and return it as a plain dict."""
+    return yaml.safe_load(HOME.read_text(encoding="utf-8"))
+
+
+def write_page(env: Environment, template: str, out_path: Path, **context) -> None:
+    """Render one template with the given data and save it to out_path.
+
+    **context collects any extra keyword arguments into a dict, so each call
+    can pass different data (page=..., studies=..., etc.).
+    """
+    html = env.get_template(template).render(**context)
+    out_path.write_text(html, encoding="utf-8")
 
 
 def main() -> None:
     env = Environment(loader=FileSystemLoader(ROOT / "templates"))
-    studies = [load_case_study(p) for p in sorted(CONTENT.glob("*.md"))]
+    base = args.base_url
 
-    # Start clean so deleted case studies don't linger in the output
+    # Load case studies and put them in the order set by `order:` in each
+    # file's front matter (not alphabetical by filename).
+    studies = [load_markdown(p, env, base) for p in CASES.glob("*.md")]
+    studies.sort(key=lambda s: s["order"])
+
+    # NEW: give each study links to its neighbors for the "previous / next"
+    # navigation at the bottom of a case page. None means "no neighbor".
+    for i, s in enumerate(studies):
+        s["prev"] = studies[i - 1] if i > 0 else None
+        s["next"] = studies[i + 1] if i < len(studies) - 1 else None
+
+    pages = [load_markdown(p, env, base) for p in sorted(PAGES.glob("*.md"))]
+    home = load_home()
+
+    # Start clean so deleted pages don't linger in the output
     if OUT.exists():
         shutil.rmtree(OUT)
     (OUT / "case-studies").mkdir(parents=True)
@@ -47,17 +88,25 @@ def main() -> None:
     # instead of processing it with Jekyll
     (OUT / ".nojekyll").touch()
 
-    # Index page listing every study. base_url is passed to every template.
-    index = env.get_template("index.html").render(
-        studies=studies, base_url=args.base_url
-    )
-    (OUT / "index.html").write_text(index, encoding="utf-8")
+    # Landing page
+    write_page(env, "index.html", OUT / "index.html",
+               studies=studies, home=home, base_url=base)
 
-    # One page per study
-    template = env.get_template("case_study.html")
+    # NEW: case-study index at /case-studies/index.html
+    write_page(env, "case_index.html", OUT / "case-studies" / "index.html",
+               studies=studies, base_url=base)
+
+    # One page per case study
     for s in studies:
-        page = template.render(study=s, base_url=args.base_url)
-        (OUT / "case-studies" / f"{s['slug']}.html").write_text(page, encoding="utf-8")
+        write_page(env, "case_study.html",
+                   OUT / "case-studies" / f"{s['slug']}.html",
+                   study=s, base_url=base)
+
+    # NEW: one page per file in content/pages/ -> docs/researchers.html, etc.
+    # `studies` is passed too, because the practitioners page shows case cards.
+    for p in pages:
+        write_page(env, "page.html", OUT / f"{p['slug']}.html",
+                   page=p, studies=studies, base_url=base)
 
 
 if __name__ == "__main__":

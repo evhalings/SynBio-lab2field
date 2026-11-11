@@ -1,8 +1,37 @@
 {% extends "base.html" %}
-{% block title %}{{ study.title }}{% endblock %}
+{% block title %}{{ study.title }} · From Lab to Field{% endblock %}
+
 {% block content %}
-<p class="kicker"><a href="{{ base_url }}/index.html">&larr; All case studies</a></p>
-<h1>{{ study.title }}</h1>
+<p class="kicker"><a href="{{ base_url }}/case-studies/index.html">&larr; All case studies</a></p>
+
+<header class="case-head">
+  {# Icon well: a colored circle holding the case's icon. `well` picks the
+     color (mist / sand / dark). Icons are decorative, so alt="" #}
+  <div class="icon-well icon-well--{{ study.well }}">
+    <img class="{% if study.icon_recolor %}icon-recolor{% endif %}"
+         src="{{ base_url }}/static/img/{{ study.icon }}" alt="">
+  </div>
+  <div>
+    <p class="kicker">{{ study.label }}</p>
+    <h1>{{ study.title }}</h1>
+  </div>
+</header>
 <div class="rule"></div>
-{{ study.html | safe }}
+
+{% if study.meta %}<p class="case-meta">{{ study.meta }}</p>{% endif %}
+{% if study.lede %}<p class="lede">{{ study.lede }}</p>{% endif %}
+
+<div class="prose">
+  {{ study.html | safe }}
+</div>
+
+{# prev / next were added to each study by build.py; None means no neighbor #}
+<nav class="case-pager" aria-label="More case studies">
+  {% if study.prev %}
+  <a class="prev" href="{{ base_url }}/case-studies/{{ study.prev.slug }}.html">&larr; {{ study.prev.title }}</a>
+  {% endif %}
+  {% if study.next %}
+  <a class="next" href="{{ base_url }}/case-studies/{{ study.next.slug }}.html">{{ study.next.title }} &rarr;</a>
+  {% endif %}
+</nav>
 {% endblock %}

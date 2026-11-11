@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}{{ page.title }} · From Lab to Field{% endblock %}
+
+{% block content %}
+{# `page` is one dict from build.py: its front matter plus page.html (the body) #}
+<header class="page-head">
+  <p class="kicker">{{ page.kicker }}</p>
+  <h1>{{ page.title }}</h1>
+  <div class="rule"></div>
+  {# `if` skips the paragraph entirely when a page has no lede #}
+  {% if page.lede %}<p class="lede">{{ page.lede }}</p>{% endif %}
+</header>
+
+{# Pages opt in to the case cards with `show_cases: true` in front matter.
+   `include` pastes another template in and shares this one's variables. #}
+{% if page.show_cases %}
+  {% include "_case_cards.html" %}
+{% endif %}
+
+{# `| safe` tells Jinja the HTML is trusted, so it isn't escaped into &lt;p&gt; #}
+<div class="prose">
+  {{ page.html | safe }}
+</div>
+{% endblock %}

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ROSALIND, Cell-Free Water Biosensing</title>
+  <title>ROSALIND, Cell-Free Water Biosensing · From Lab to Field</title>
 
   <!-- Fonts: Big Shoulders Display (headings), Karla (body), Yellowtail (script).
        preconnect warms up the connection to Google before the CSS asks for fonts.
@@ -12,41 +12,116 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;700;800&family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Yellowtail&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="/SynBio-lab2field/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
+  <!-- Skip link: invisible until a keyboard user tabs to it, then lets them
+       jump past the nav straight to the content. -->
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <header class="site-header">
     <div class="container">
-      <a class="site-title" href="/SynBio-lab2field/index.html">From Lab to Field</a>
+      <a class="site-title" href="/index.html">From Lab to Field</a>
+      <nav aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="/researchers.html">For researchers</a></li>
+          <li><a href="/practitioners.html">For practitioners</a></li>
+          <!-- CHANGED: now the real case-study index page -->
+          <li><a href="/case-studies/index.html">Case studies</a></li>
+          <li><a href="/about.html">About</a></li>
+        </ul>
+      </nav>
     </div>
   </header>
 
-  <main class="container">
+  <!-- The hero block is OUTSIDE <main class="container"> so it can span the
+       full browser width. Pages that don't define a hero leave it empty. -->
+  
+
+  <main id="main" class="container">
     
-<p class="kicker"><a href="/SynBio-lab2field/index.html">&larr; All case studies</a></p>
-<h1>ROSALIND, Cell-Free Water Biosensing</h1>
+<p class="kicker"><a href="/case-studies/index.html">&larr; All case studies</a></p>
+
+<header class="case-head">
+  
+  <div class="icon-well icon-well--mist">
+    <img class="icon-recolor"
+         src="/static/img/icon-droplet.svg" alt="">
+  </div>
+  <div>
+    <p class="kicker">Case 1</p>
+    <h1>ROSALIND, Cell-Free Water Biosensing</h1>
+  </div>
+</header>
 <div class="rule"></div>
-<p>A paper-based test that detects contaminants like fluoride in drinking water, with no lab, no cold storage, and a color readout non-experts can interpret.</p>
-<div class="stats">
-  <div class="stat"><div class="number">98.2%</div><div class="caption">of 36 Kenyan participants read the test correctly themselves</div></div>
-  <div class="stat"><div class="number">&lt;$10</div><div class="caption">cost per test</div></div>
+
+<p class="case-meta">Lucks Lab, Northwestern · Field study: Kenya · 2023</p>
+<p class="lede">A paper-based test that detects contaminants like fluoride in drinking water, with no lab, no cold storage, and a color readout non-experts can interpret.</p>
+
+<div class="prose">
+  <div class="photo-pair">
+  <figure><img src="/static/img/photo-crop-team.webp" alt="The field team standing together in a green field" loading="lazy"></figure>
+  <figure><img src="/static/img/illo-device.webp" alt="Illustration of the portable PLUM reader held in a hand" loading="lazy"></figure>
 </div>
 
-<h2>What made the partnership work</h2>
-<ul class="factors">
-  <li>Kenyan co-investigators embedded from the start</li>
-  <li>Usability tested as a core design metric, not an afterthought</li>
-  <li>No cold chain and no GMO release, so an easier regulatory path</li>
-</ul>
+<div class="stats">
+  <div class="stat"><div class="number">98.2%</div><div class="caption">of 36 Kenyan participants read the test correctly themselves</div></div>
+  <div class="stat"><div class="number">89.5%</div><div class="caption">accuracy vs. gold-standard fluoride photometer, Kenya</div></div>
+  <div class="stat"><div class="number">&lt;$10</div><div class="caption">cost per test</div></div>
+  <div class="stat"><div class="number">57</div><div class="caption">water samples tested, 36 households, Nakuru County</div></div>
+  <div class="stat"><div class="number">17</div><div class="caption">contaminants detectable by the platform, including lead (Chicago pilot ongoing)</div></div>
+</div>
 
-<div class="callout">Grounded in experience on EWB water infrastructure projects in Central America: sustainable development requires community independence.</div>
+<h2>The technology</h2>
+<ul>
+<li>Cell-free RNA biosensing platform</li>
+<li>Freeze-dried, so no cold chain is required</li>
+<li>Fluorescent visual readout that non-experts can interpret</li>
+</ul>
+<figure class="diagram"><img src="/static/img/dia-freezedry.webp" alt="Process diagram: freeze-dried reaction, add water sample, wait, color change" loading="lazy"></figure>
+
+<h2>What made it field-deployable</h2>
+<ul>
+<li>No cold chain required</li>
+<li>Cell-free system: no GMO release</li>
+<li>Social science from project inception</li>
+<li>Usability was a core metric</li>
+<li>Kenyan co-investigators embedded</li>
+</ul>
+<h2>What the partnership looked like</h2>
+<ul>
+<li>Kenyan co-investigators embedded from the start</li>
+<li>Usability tested as a core design metric, not an afterthought</li>
+<li>No cold chain and no GMO release, so an easier regulatory path</li>
+</ul>
+<div class="callout">Technology was designed at Northwestern. A path to local production is a logical step toward full community independence.</div>
+
+<div class="panel-dark">
+  <blockquote class="pull-quote"><p>"For impactful technology you need to understand the whole ecosystem — technical, regulatory, political."</p><cite>Julius Lucks · Northwestern — ROSALIND</cite></blockquote>
+</div>
+</div>
+
+
+<nav class="case-pager" aria-label="More case studies">
+  
+  
+  <a class="next" href="/case-studies/paper-diagnostics.html">Paper Diagnostics for Viral Disease &rarr;</a>
+  
+</nav>
 
   </main>
 
   <footer class="site-footer">
-    <div class="container">
+    <div class="container footer-inner">
       <p>Supported by NSF SynBAS NRT Training Grant No. 2021900.
          Northwestern Center for Synthetic Biology · Engineers Without Borders Chicagoland Professional Chapter</p>
+      <!-- Logos are black SVGs; CSS inverts them to white on the deep-teal footer.
+           Alt text is the organization name, per image-inventory.md. -->
+      <div class="footer-logos">
+        <img src="/static/img/ewb-globe.svg" alt="Engineers Without Borders">
+        <img src="/static/img/csb-logo.svg" alt="Center for Synthetic Biology">
+        <img src="/static/img/nu-n.svg" alt="Northwestern University">
+      </div>
     </div>
   </footer>
 </body>

@@ -1,0 +1,17 @@
+{# Shared by case_index.html and page.html. Needs `studies` and `base_url`. #}
+<div class="case-cards">
+  {% for s in studies %}
+  {# `care: true` in a case's front matter adds the dark "read with care" look #}
+  <article class="card case-card{% if s.care %} case-card--care{% endif %}">
+    <p class="kicker">{{ s.label }}</p>
+    <h2><a href="{{ base_url }}/case-studies/{{ s.slug }}.html">{{ s.title }}</a></h2>
+    <p>{{ s.summary }}</p>
+    {% if s.stat %}
+    <div class="stat">
+      <div class="number">{{ s.stat }}</div>
+      <div class="caption">{{ s.stat_caption }}</div>
+    </div>
+    {% endif %}
+  </article>
+  {% endfor %}
+</div>

@@ -43,6 +43,20 @@ body {
 a { color: var(--teal); }
 a:hover { color: var(--moss); }
 
+/* Visible keyboard focus: outlines only appear for keyboard users */
+a:focus-visible { outline: 3px solid var(--water); outline-offset: 3px; }
+
+/* Skip link: parked off-screen, slides into view when focused */
+.skip-link {
+  position: absolute;
+  left: 0.75rem; top: -4rem;
+  padding: 0.5rem 1rem;
+  background: var(--deep-teal);
+  color: var(--paper);
+  z-index: 100;
+}
+.skip-link:focus { top: 0.75rem; }
+
 /* =====================================================================
    3. TYPOGRAPHY: display type is always uppercase, tight, condensed
    ===================================================================== */
@@ -89,7 +103,16 @@ h3 { font-size: 1.3rem; }
 /* =====================================================================
    4. HEADER AND FOOTER
    ===================================================================== */
+/* The header's .container becomes a flex row: title left, nav right.
+   flex-wrap lets the nav drop under the title on narrow phones. */
 .site-header { padding: 1.25rem 0; }
+.site-header .container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+}
 .site-title {
   font-family: var(--display);
   font-weight: 800;
@@ -100,13 +123,46 @@ h3 { font-size: 1.3rem; }
   text-decoration: none;
 }
 
+.nav-list {
+  list-style: none;       /* remove bullets */
+  margin: 0; padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+.nav-list a {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--teal);
+  text-decoration: none;
+}
+.nav-list a:hover { color: var(--moss); }
+
 .site-footer {
   margin-top: 4rem;
   padding: 2rem 0;
   background: var(--deep-teal);
   color: var(--paper);
   font-size: 0.85rem;
-  opacity: 0.95;
+}
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem 2rem;
+}
+.footer-inner p { margin: 0; max-width: 34rem; }
+.footer-logos { display: flex; align-items: center; gap: 1.1rem; }
+.footer-logos img {
+  height: 2rem;
+  width: auto;
+  /* Black SVG -> white: brightness(0) makes it black, invert(1) flips to white */
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
 }
 
 /* =====================================================================
@@ -193,13 +249,322 @@ h3 { font-size: 1.3rem; }
   object-fit: cover;
 }
 
-/* Index page case-study cards */
+/* Case-study cards (home page). Now an h3, since the section owns the h2. */
 .card {
   background: var(--sand);
   padding: 1.5rem 1.75rem;
   border-radius: 3rem 0.6rem 3rem 0.6rem;
   margin-bottom: 1.25rem;
 }
-.card h2 { margin-top: 0; }
-.card h2 a { color: var(--deep-teal); text-decoration: none; }
-.card h2 a:hover { color: var(--teal); }
+.card h3 { margin-top: 0; font-size: 1.6rem; }
+.card h3 a { color: var(--deep-teal); text-decoration: none; }
+.card h3 a:hover { color: var(--teal); }
+.card p { margin-bottom: 0; }
+
+/* =====================================================================
+   6. HOME PAGE: hero, statement, audience split, questions
+   ===================================================================== */
+
+/* ---- Hero: shared by both layouts ---- */
+.hero {
+  position: relative;            /* anchor for the decorative circles */
+  overflow: hidden;              /* clip circles that bleed off the edge */
+  background: var(--deep-teal);
+  color: var(--paper);
+  padding: 3rem 0 3.5rem;
+}
+
+/* Decorative circles from the cover: moss (28%) and water (24%).
+   ::before / ::after draw them with no extra HTML. */
+.hero::before, .hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;          /* never block clicks */
+}
+.hero::before {                  /* moss, lower left */
+  width: 14rem; height: 14rem;
+  background: var(--moss); opacity: 0.28;
+  left: -5rem; bottom: -4rem;
+}
+.hero::after {                   /* water, upper right */
+  width: 12rem; height: 12rem;
+  background: var(--water); opacity: 0.24;
+  right: -4rem; top: -3rem;
+}
+
+/* Lift the real content above the decorative circles */
+.hero-inner { position: relative; z-index: 1; }
+
+/* Text colors flip for the dark background */
+.hero .kicker { color: var(--paper); opacity: 0.85; }
+.hero h1 { color: var(--paper); font-size: 1rem; }   /* spans below set real sizes */
+.hero .script {
+  display: block;                /* script word on its own line */
+  color: var(--lime);
+  font-size: clamp(2.6rem, 8vw, 4.5rem);
+  line-height: 1;
+}
+.hero-title-main {
+  display: block;
+  font-size: clamp(3.6rem, 13vw, 7rem);
+  line-height: 0.82;
+}
+.hero .rule { background: var(--lime); }
+.hero-subtitle {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  text-transform: uppercase;
+  line-height: 1.1;
+  max-width: 20rem;
+  margin: 0;
+}
+
+/* ---- Hero layout 1: "circle" (text beside a round photo) ---- */
+/* Mobile first: one column, so text stacks above the photo. */
+.hero--circle .hero-inner {
+  display: grid;
+  gap: 2.5rem;
+  align-items: center;
+}
+.hero-photo img {
+  display: block;
+  width: min(100%, 22rem);       /* never wider than the screen or 22rem */
+  aspect-ratio: 1;               /* force a square box... */
+  border-radius: 50%;            /* ...then a circle */
+  object-fit: cover;             /* crop rather than squish */
+  margin: 0 auto;
+}
+/* From ~768px up: two columns, text left, photo right */
+@media (min-width: 48rem) {
+  .hero--circle .hero-inner { grid-template-columns: 1.15fr 1fr; }
+  .hero--circle { padding: 4rem 0; }
+}
+
+/* ---- Hero layout 2: "wide" (full-bleed photo with the cover gradient) ---- */
+/* Two stacked backgrounds: the gradient from design-system.md on top,
+   the photo (passed in as --hero-img) underneath. */
+.hero--wide {
+  background-image:
+    linear-gradient(178deg,
+      rgba(138, 166, 60, .34) 0%,
+      rgba(28, 93, 99, .62) 42%,
+      rgba(14, 59, 69, .97) 88%),
+    var(--hero-img);
+  background-size: cover;
+  background-position: var(--hero-focus, 50% 50%);
+  min-height: 70vh;
+  display: flex;
+  align-items: flex-end;         /* text sits low, where the gradient is darkest */
+  padding: 6rem 0 3rem;
+}
+.hero--wide .hero-inner { width: 100%; }
+.hero--wide::before, .hero--wide::after { display: none; } /* photo replaces circles */
+
+/* ---- Statement of purpose ---- */
+.statement {
+  font-family: var(--display);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--deep-teal);
+  margin: 3rem 0 2.5rem;
+}
+.statement p { margin: 0; max-width: 40rem; }
+.statement strong { font-weight: 800; }
+
+/* ---- Audience split: two big linked cards ---- */
+.audience-grid { display: grid; gap: 1.25rem; }
+@media (min-width: 40rem) {
+  .audience-grid { grid-template-columns: 1fr 1fr; }
+}
+.audience-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.75rem;
+  text-decoration: none;         /* the whole card is the link */
+}
+.audience-card h2 { margin: 0 0 0.5rem; font-size: 1.9rem; }
+.audience-cta {
+  margin-top: auto;              /* push to the bottom of the card */
+  font-family: var(--display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+/* Light variant: sand, leaf corners (same family as .callout) */
+.audience-card--light {
+  background: var(--sand);
+  border-radius: 3rem 0.6rem 3rem 0.6rem;
+}
+.audience-card--light .audience-cta { color: var(--teal); }
+.audience-card--light:hover .audience-cta { color: var(--moss); }
+/* Dark variant: deep teal, mirrored corners (same family as .panel-dark) */
+.audience-card--dark {
+  background: var(--deep-teal);
+  border-radius: 0.6rem 3rem 0.6rem 3rem;
+}
+.audience-card--dark h2 { color: var(--paper); }
+.audience-card--dark .kicker, .audience-card--dark .audience-cta { color: var(--lime); }
+.audience-card--dark:hover .audience-cta { color: var(--paper); }
+
+/* ---- Three questions: badge on the left, text on the right ---- */
+.questions { list-style: none; padding: 0; margin: 0; }
+.questions li {
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;   /* badge column, text column */
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.questions h3 { margin: 0.2rem 0 0.35rem; }
+.questions p { margin: 0; }
+
+
+/* =====================================================================
+   7. CONTENT PAGES: page header, prose, case pages, case cards
+   ===================================================================== */
+
+/* ---- Page header (Researchers, Practitioners, About, Case index) ---- */
+.page-head { margin: 2.5rem 0 1.5rem; }
+.lede {
+  font-size: 1.25rem;
+  line-height: 1.45;
+  max-width: 42rem;
+  margin: 0 0 1.5rem;
+}
+
+/* ---- Prose: styles for the HTML that Markdown produces ---- */
+.prose { max-width: 46rem; }
+.prose h2::after {               /* moss accent rule under every h2, no extra HTML */
+  content: "";
+  display: block;
+  width: 3.5rem; height: 3px;
+  background: var(--moss);
+  margin-top: 0.8rem;
+}
+.prose h3 { margin-top: 1.75rem; }
+/* Plain Markdown bullets get the same moss-dash marker as .factors */
+.prose ul { list-style: none; padding: 0; }
+.prose ul li { padding-left: 1.5rem; position: relative; margin-bottom: 0.5rem; }
+.prose ul li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0.75em;
+  width: 0.9rem; height: 3px;
+  background: var(--moss);
+}
+.prose ol { padding-left: 1.4rem; }
+.prose ol li { margin-bottom: 0.5rem; }
+
+/* Dark panels inside prose: lime accents instead of moss */
+.prose .panel-dark h2::after { background: var(--lime); }
+.prose .panel-dark a { color: var(--lime); }
+.panel-dark p:last-child { margin-bottom: 0; }
+
+/* Pull quotes inside a dark panel: lime attribution, tighter spacing */
+.pull-quote p { margin: 0; }
+.panel-dark .pull-quote { margin: 0 0 1.5rem; }
+.panel-dark .pull-quote:last-child { margin-bottom: 0; }
+.panel-dark .pull-quote cite { color: var(--lime); }
+
+/* ---- Case page header ---- */
+.case-head { display: flex; align-items: center; gap: 1rem; margin-top: 1.5rem; }
+.case-head h1 { margin: 0; }
+.case-head .kicker { margin-bottom: 0.25rem; }
+.case-meta {
+  font-family: var(--display);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--teal);
+  margin: 0 0 1rem;
+}
+
+/* Icon well: colored circle behind an icon */
+.icon-well {
+  flex: none;
+  width: 4.5rem; height: 4.5rem;
+  border-radius: 50%;
+  display: grid; place-items: center;
+}
+.icon-well img { height: 2.4rem; width: auto; max-width: 2.4rem; }
+.icon-well--mist { background: var(--mist); }
+.icon-well--sand { background: var(--sand); }
+.icon-well--dark { background: var(--deep-teal); }
+/* The droplet/seedling/soap SVGs are black; this filter tints them teal
+   (same filter chain the brochure used) */
+.icon-recolor {
+  filter: brightness(0) saturate(100%) invert(23%) sepia(28%) saturate(1200%) hue-rotate(150deg);
+}
+
+/* ---- Photos and diagrams ---- */
+.photo-pair { display: grid; gap: 0.75rem; margin: 1.75rem 0; }
+@media (min-width: 36rem) { .photo-pair { grid-template-columns: 1fr 1fr; } }
+.photo-pair figure { margin: 0; }
+.photo-pair img { display: block; width: 100%; height: 15rem; object-fit: cover; }
+/* Leaf corners, mirrored left to right (radius order: TL TR BR BL) */
+.photo-pair figure:first-child img { border-radius: 0.5rem 3rem 0.5rem 0.5rem; }
+.photo-pair figure:last-child  img { border-radius: 3rem 0.5rem 0.5rem 0.5rem; }
+
+/* Diagrams come with white backgrounds, so they sit on a white card */
+.diagram { margin: 1.75rem 0; padding: 1rem; background: #fff; border-radius: 0.6rem; }
+.diagram img { display: block; width: 100%; height: auto; }
+
+/* ---- Side-by-side cards (Tanzania/Burkina Faso, Agriculture/Sanitation) ---- */
+.compare { display: grid; gap: 1.25rem; margin: 1.5rem 0; }
+@media (min-width: 40rem) { .compare { grid-template-columns: 1fr 1fr; } }
+.compare-card {
+  background: var(--sand);
+  padding: 1.5rem 1.75rem;
+  border-radius: 3rem 0.6rem 3rem 0.6rem;
+}
+.compare-card:nth-child(2) { border-radius: 0.6rem 3rem 0.6rem 3rem; }
+.prose .compare-card h3 { margin-top: 0; }
+.compare-card p { margin: 0; }
+.compare-card .icon-well { width: 3.5rem; height: 3.5rem; margin-bottom: 0.75rem; }
+
+/* ---- Previous / next navigation at the bottom of a case ---- */
+.case-pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(20, 49, 58, 0.16);
+  font-family: var(--display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.case-pager a { text-decoration: none; }
+.case-pager .next { margin-left: auto; text-align: right; }  /* stay right even if alone */
+
+/* ---- Case cards (index page and practitioners page) ---- */
+.case-cards { display: grid; gap: 1.25rem; margin: 1.5rem 0 2.5rem; }
+.case-card { position: relative; }       /* anchor for the stretched link below */
+.case-card h2 { margin-top: 0; font-size: 1.7rem; }
+.case-card h2 a { color: var(--deep-teal); text-decoration: none; }
+.case-card h2 a:hover { color: var(--teal); }
+.case-card h2 a::after {                 /* invisible layer covering the whole card */
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.case-card h2 a:focus-visible { outline: none; }
+.case-card:focus-within { outline: 3px solid var(--water); outline-offset: 3px; }
+.case-card .stat { margin: 1rem 0 0; }
+.case-card .stat .number { font-size: 2.4rem; }
+.case-card p:last-child { margin-bottom: 0; }
+
+/* "Read with care" variant: dark card, mirrored corners, lime accents */
+.case-card--care {
+  background: var(--deep-teal);
+  color: var(--paper);
+  border-radius: 0.6rem 3rem 0.6rem 3rem;
+}
+.case-card--care .kicker { color: var(--lime); }
+.case-card--care h2 a { color: var(--paper); }
+.case-card--care h2 a:hover { color: var(--lime); }
+.case-card--care .stat .number { color: var(--lime); }

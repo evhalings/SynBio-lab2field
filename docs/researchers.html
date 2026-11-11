@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Why lab success doesn't guarantee field success · From Lab to Field</title>
+
+  <!-- Fonts: Big Shoulders Display (headings), Karla (body), Yellowtail (script).
+       preconnect warms up the connection to Google before the CSS asks for fonts.
+       display=swap shows fallback text immediately instead of blank text. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;700;800&family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Yellowtail&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+  <!-- Skip link: invisible until a keyboard user tabs to it, then lets them
+       jump past the nav straight to the content. -->
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="site-title" href="/index.html">From Lab to Field</a>
+      <nav aria-label="Main">
+        <ul class="nav-list">
+          <li><a href="/researchers.html">For researchers</a></li>
+          <li><a href="/practitioners.html">For practitioners</a></li>
+          <!-- CHANGED: now the real case-study index page -->
+          <li><a href="/case-studies/index.html">Case studies</a></li>
+          <li><a href="/about.html">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- The hero block is OUTSIDE <main class="container"> so it can span the
+       full browser width. Pages that don't define a hero leave it empty. -->
+  
+
+  <main id="main" class="container">
+    
+
+<header class="page-head">
+  <p class="kicker">For synthetic biology researchers</p>
+  <h1>Why lab success doesn't guarantee field success</h1>
+  <div class="rule"></div>
+  
+  <p class="lede">Synthetic biology is producing tools directly relevant to problems communities face — water quality, food safety, disease. But the lab-to-field pathway is often built through opportunistic partnerships, and most research happens inside an academic bubble without local context.</p>
+</header>
+
+
+
+
+
+<div class="prose">
+  <p>Across three case studies, the technologies that reached real communities shared a pattern: local partnership was built alongside the tool, not bolted on afterward.</p>
+<div class="callout">Grounded in: experience on EWB water infrastructure projects in Central America — sustainable development requires community independence. A solution that requires outside experts to return isn't sustainable.</div>
+
+<h2>Three questions to ask throughout the process</h2>
+<h3>1. Who is defining the problem?</h3>
+<p>You cannot tell a community what their problem is. The most successful tools here share one trait: the in-country partnership was built alongside the tool.</p>
+<h3>2. Independence or dependency?</h3>
+<p>Transferring tools from academic labs is faster. Building local capacity produces communities that can own the science.</p>
+<h3>3. How does local context change my design constraints?</h3>
+<p>Include social scientists in design. Explicitly consider how your design would change outside a well-equipped lab.</p>
+<h2>Five deployment readiness factors</h2>
+<ul>
+<li><strong>Cold chain</strong> — independence from refrigeration</li>
+<li><strong>Partnership model</strong> — local co-design vs. co-execution</li>
+<li><strong>Regulatory path</strong> — environmental &amp; political</li>
+<li><strong>Cost target</strong> — under $5–10 per use for most cases</li>
+<li><strong>Usability design</strong> — non-expert interpretable output</li>
+</ul>
+<figure class="diagram"><img src="/static/img/diagram-five-factors.svg" alt="Diagram linking a central technology to five deployment readiness factors" loading="lazy"></figure>
+
+<h2>Where the connections aren't built yet</h2>
+<div class="compare">
+  <div class="compare-card">
+    <div class="icon-well icon-well--mist"><img class="icon-recolor" src="/static/img/icon-seedling.svg" alt=""></div>
+    <h3>Agriculture</h3>
+    <p>Cell-free biosensor tech is proven for small molecules. About 25% of Sub-Saharan African cereal crops are contaminated with aflatoxin annually, with no farm-level test.</p>
+  </div>
+  <div class="compare-card">
+    <div class="icon-well icon-well--mist"><img class="icon-recolor" src="/static/img/icon-soap.svg" alt=""></div>
+    <h3>Sanitation</h3>
+    <p>Fecal biosensors exist, but EWB lacks community tools to verify latrine performance after deployment.</p>
+  </div>
+</div>
+
+<h2>From the researchers</h2>
+<div class="panel-dark">
+  <blockquote class="pull-quote"><p>"For impactful technology you need to understand the whole ecosystem — technical, regulatory, political."</p><cite>Julius Lucks · Northwestern — ROSALIND</cite></blockquote>
+  <blockquote class="pull-quote"><p>"Access to bioreagents is a real limit in the Global South — antibodies and enzymes get stuck in customs, and cost far more once they arrive."</p><cite>Keith Pardee · University of Toronto — Paper Diagnostics</cite></blockquote>
+</div>
+
+<p>See how three technologies handled these questions in the <a href="/case-studies/index.html">case studies</a>.</p>
+</div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>Supported by NSF SynBAS NRT Training Grant No. 2021900.
+         Northwestern Center for Synthetic Biology · Engineers Without Borders Chicagoland Professional Chapter</p>
+      <!-- Logos are black SVGs; CSS inverts them to white on the deep-teal footer.
+           Alt text is the organization name, per image-inventory.md. -->
+      <div class="footer-logos">
+        <img src="/static/img/ewb-globe.svg" alt="Engineers Without Borders">
+        <img src="/static/img/csb-logo.svg" alt="Center for Synthetic Biology">
+        <img src="/static/img/nu-n.svg" alt="Northwestern University">
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

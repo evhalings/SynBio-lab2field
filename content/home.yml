@@ -1,0 +1,49 @@
+# Content for the landing page. build.py reads this file with yaml.safe_load(),
+# which turns it into nested Python dicts and lists. In index.html you reach
+# values with dots, e.g. {{ home.hero.title }}.
+
+hero:
+  # "circle" = text beside a circular photo (today).
+  # "wide"   = full-bleed background photo with text over it (later).
+  layout: circle
+  image: photo-field-julius.webp   # a file inside static/img/
+  alt: Researchers testing water samples in a Kenyan maize field
+  # Where to anchor the crop, as CSS "x% y%". 50% 50% = dead center.
+  # Only matters for layout "wide" (and for fine-tuning the circle).
+  focus: 50% 50%
+  kicker: A field guide for two perspectives
+  script: From lab
+  title: to field
+  subtitle: How synthetic biology can serve global development.
+
+statement_lead: "Two communities, one goal:"
+statement: technology that actually reaches the people who need it.
+
+# The two-way split. href is relative; the template adds base_url.
+audiences:
+  - kicker: I'm a researcher
+    title: Why lab success doesn't guarantee field success
+    href: /researchers.html
+    cta: Read the researcher side
+    style: light
+  - kicker: I work in global development
+    title: What can synthetic biology actually do for you?
+    href: /practitioners.html
+    cta: Read the practitioner side
+    style: dark
+
+questions_title: Three questions to ask throughout the process
+questions:
+  - heading: Who is defining the problem?
+    text: >-
+      You cannot tell a community what their problem is. The most successful
+      tools here share one trait: the in-country partnership was built
+      alongside the tool.
+  - heading: Independence or dependency?
+    text: >-
+      Transferring tools from academic labs is faster. Building local capacity
+      produces communities that can own the science.
+  - heading: How does local context change my design constraints?
+    text: >-
+      Include social scientists in design. Explicitly consider how your design
+      would change outside a well-equipped lab.
