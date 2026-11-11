@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>From Lab to Field</h1>
+{% for s in studies %}
+  <article>
+    <h2><a href="{{ base_url }}/case-studies/{{ s.slug }}.html">{{ s.title }}</a></h2>
+    <p>{{ s.summary }}</p>
+  </article>
+{% endfor %}
+{% endblock %}
